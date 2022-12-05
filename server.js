@@ -14,7 +14,7 @@ import cors from "cors";
 
 const app = express();
 app.use(cors());
-app.use(express.json);
+app.use(express.json());
 
 // Endpoint
 app.post("/dream", async (req, res) => {
