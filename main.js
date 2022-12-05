@@ -4,6 +4,7 @@ const form = document.querySelector("form");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  // Check if form is blank
   showSpinner();
   const data = new FormData(form);
 
@@ -17,10 +18,17 @@ form.addEventListener("submit", async (e) => {
     }),
   });
 
-  const { image } = await response.json();
+  if (response.ok) {
+    const { image } = await response.json();
 
-  const result = document.querySelector("#result");
-  result.innerHTML = `<img src=${image} width="512" />`;
+    const result = document.querySelector("#result");
+    result.innerHTML = `<img src=${image} width="512" />`;
+  } else {
+    const err = await response.text();
+    alert(err);
+    console.error(err);
+  }
+
   hideSpinner();
 });
 
